@@ -7,6 +7,9 @@ class HashTableEntry:
         self.value = value
         self.next = None
 
+    def __repr__(self):
+        return f"HashTableEntry({repr(self.key)},{repr(self.value)}"
+
 
 # Hash table can't have fewer than this many slots
 MIN_CAPACITY = 8
@@ -20,9 +23,9 @@ class HashTable:
     Implement this.
     """
 
-    def __init__(self, capacity):
-        # Your code here
-
+    def __init__(self, capacity=MIN_CAPACITY):
+        self.capacity = capacity
+        self.storage = [None] * capacity
 
     def get_num_slots(self):
         """
@@ -34,7 +37,7 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        return self.capacity
 
 
     def get_load_factor(self):
@@ -62,7 +65,12 @@ class HashTable:
 
         Implement this, and/or FNV-1.
         """
-        # Your code here
+        key = key.encode()
+
+        hash = 5381
+        for x in key:
+            hash = ((hash << 5) + hash) + x
+        return hash 
 
 
     def hash_index(self, key):
@@ -73,6 +81,7 @@ class HashTable:
         #return self.fnv1(key) % self.capacity
         return self.djb2(key) % self.capacity
 
+
     def put(self, key, value):
         """
         Store the value with the given key.
@@ -81,7 +90,8 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        index = self.hash_index(key)
+        self.storage[index] = value
 
 
     def delete(self, key):
@@ -92,7 +102,12 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        index = self.hash_index(key)
+        if self.storage[index] != None:
+            self.storage[index] = None
+        else:
+            print("Key not found")
+     
 
 
     def get(self, key):
@@ -103,7 +118,11 @@ class HashTable:
 
         Implement this.
         """
-        # Your code here
+        index = self.hash_index(key)
+        if self.storage[index] != None:
+            return self.storage[index]
+        else:
+            print("Key not found")
 
 
     def resize(self, new_capacity):
