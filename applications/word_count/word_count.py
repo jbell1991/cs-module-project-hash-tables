@@ -1,5 +1,4 @@
 def word_count(s):
-    # take in sentence as the input
     counts = {}
     # convert string to lowercase
     s = s.lower()
@@ -18,7 +17,7 @@ def word_count(s):
         else:
             # add 1 to the value 
             counts[word] += 1
-
+            
     # return dictionary with each word as the key and count of each word as the value
     return counts
 
