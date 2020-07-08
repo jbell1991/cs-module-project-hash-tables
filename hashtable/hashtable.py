@@ -27,6 +27,7 @@ class HashTable:
         self.length = 0
         self.storage = [None] * capacity
 
+
     def get_num_slots(self):
         """
         Return the length of the list you're using to hold the hash
@@ -161,15 +162,12 @@ class HashTable:
         old_storage = self.storage
         self.capacity = new_capacity
         self.storage = [None] * self.capacity
-
         node = None
-
         for item in old_storage:
             node = item
             while node is not None:
                 self.put(node.key, node.value)
                 node = node.next
-
 
 
 if __name__ == "__main__":
